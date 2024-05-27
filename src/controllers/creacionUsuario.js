@@ -1,31 +1,29 @@
 "use strict";
 const express = require("express");
-const { leerUsuarios } = require("../models/leerUsuarios.js");
-const fs = require("fs/promises");
+const {crearUsuario} = require("../models/crearUsuario.js")
 const path = require("path");
-
-
-/*necesario el router para implementar modulos con express */
+const {mensajeError} = require("../views/mensajeError.js")
+// Crear una instancia del router
 const router = express.Router();
 
-
+// Definir la ruta POST para crear un nuevo usuario
 const creacionUsuario = router.post("/usuario", async (req, res) => {
-    const usuarios = await leerUsuarios();
-    
+    // Crear un nuevo objeto de usuario desde el cuerpo de la solicitud
     const nuevoUsuario = {
-        nombre : req.body.nombre,
-        apellido: req.body.apellido
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        cuit: req.body.cuit,
     };
 
-    usuarios.push(nuevoUsuario);
+    // Escribir el nuevo usuario en la base de datos (o cualquier almacenamiento)
+    try {await crearUsuario(nuevoUsuario);
 
-    const pathDb = path.resolve("db", "usuarios.json");
-
-    const usuarioStr = JSON.stringify(usuarios)
-
-    await fs.writeFile(pathDb, usuarioStr);
-    
-    res.status(200).json({ succes: true });
+    // Enviar una respuesta de éxito
+    res.status(201).sendFile(path.resolve("public", "exitoDeCracion.html"))
+    }catch(error){
+        res.status(400).send(mensajeError(req.body.cuit))
+    }
 });
-module.exports = {creacionUsuario};
 
+// Exportar el router para ser utilizado en otras partes de la aplicación
+module.exports = { creacionUsuario };

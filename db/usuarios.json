@@ -1,1 +1,27 @@
-[{"nombre":"Juan ","apellido":"Ammiraglia"}]
+[
+  {
+    "nombre": "ffff",
+    "apellido": "ffff",
+    "cuit": "55224411"
+  },
+  {
+    "nombre": "Juan ",
+    "apellido": "ffff",
+    "cuit": "5"
+  },
+  {
+    "nombre": "Juan ",
+    "apellido": "Ammiraglia",
+    "cuit": "6"
+  },
+  {
+    "nombre": "Juan ",
+    "apellido": "Ammiraglia",
+    "cuit": "555"
+  },
+  {
+    "nombre": "ffff",
+    "apellido": "Ammiraglia",
+    "cuit": "5558"
+  }
+]
